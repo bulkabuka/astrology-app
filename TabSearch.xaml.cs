@@ -30,7 +30,6 @@ namespace AstrologyApp
 
             ComboBox.ItemsSource = hoursItems;
         }
-        private string excelPath = string.Empty;
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -38,7 +37,7 @@ namespace AstrologyApp
 
             if (openFileDialog.ShowDialog() == true)
             {
-                excelPath = openFileDialog.FileName;
+                ExcelPath.excelPath = openFileDialog.FileName;
                 using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
                 {
                     using (var reader = ExcelReaderFactory.CreateReader(stream))
@@ -109,7 +108,7 @@ namespace AstrologyApp
 
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            using (var stream = File.Open(excelPath, FileMode.Open, FileAccess.Read))
+            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {

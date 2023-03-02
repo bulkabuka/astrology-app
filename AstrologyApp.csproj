@@ -81,6 +81,7 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="ExcelPath.cs" />
         <Compile Include="TabMinMax.xaml.cs">
             <DependentUpon>TabMinMax.xaml</DependentUpon>
         </Compile>
