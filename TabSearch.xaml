@@ -3,33 +3,38 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:AstrologyApp"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       mc:Ignorable="d"
       Title="TabSearch"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <ui:DataGrid Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Name="DataGrid" Margin="10"></ui:DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Stretch">
-            <ui:Button Name="FilePickBtn" Content="Выбрать файл" Margin="10" Appearance="Secondary" Icon="DocumentAdd24" HorizontalAlignment="Stretch"></ui:Button>
-            <ui:Button Name="ApplyBtn" Content="Применить" Margin="10" Appearance="Primary" Icon="Checkmark24" HorizontalAlignment="Stretch"></ui:Button>
-            <TextBlock Text="Выберите дату" Margin="10"></TextBlock>
-            <DatePicker Name="DatePick" Margin="10, 2"></DatePicker>
-            <TextBlock Text="Выберите время (в часах)" Margin="10"></TextBlock>
-            <ComboBox Name="ComboBox" Margin="10, 2"></ComboBox>
-            <Border Background="#F5ECDB" CornerRadius="10" Padding="10" MaxWidth="250" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов" TextWrapping="Wrap" Foreground="#615A4C"></TextBlock>
+        <ui:Button Name="Refresh" Icon="ArrowCounterclockwise24" Grid.Column="1" Grid.Row="0" Content="Сброс" Click="Refresh_OnClick" HorizontalAlignment="Right" Margin="10" IsEnabled="False"></ui:Button>
+        <ui:DataGrid Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Name="DataGrid" Margin="10" />
+        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10" Orientation="Vertical" Grid.RowSpan="3"
+                    HorizontalAlignment="Stretch">
+            <ui:Button Name="FilePickBtn" Content="Выбрать файл" Margin="10" Click="ApplyBtn_OnClick" Appearance="Secondary"
+                       Icon="DocumentAdd24" HorizontalAlignment="Stretch" />
+            <ui:Button Name="ApplyBtn" Content="Применить" Margin="10" Click="ApplyBtn_OnClick1" Appearance="Primary" Icon="Checkmark24"
+                       HorizontalAlignment="Stretch" />
+            <TextBlock Text="Выберите дату" Margin="10" />
+            <DatePicker Name="DatePick" Margin="10, 2" />
+            <TextBlock Text="Выберите время (в часах)" Margin="10" />
+            <ComboBox Name="ComboBox" Margin="10, 2" />
+            <Border Background="#F5ECDB" CornerRadius="10" Padding="10" MaxWidth="250" Margin="10"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
+                           TextWrapping="Wrap" Foreground="#615A4C" />
             </Border>
         </StackPanel>
     </Grid>

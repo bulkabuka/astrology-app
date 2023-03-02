@@ -3,42 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AstrologyApp"
         mc:Ignorable="d"
+        Loaded="MainWindow_OnLoaded"
         Background="#FBFDFA"
         Title="MainWindow" Height="400" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Border Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="20" Background="Transparent" CornerRadius="10" BorderBrush="#F5ECDB" BorderThickness="2">
-            <DataGrid Name="Data" Background="Transparent" BorderBrush="Transparent" Foreground="#6A744F" HeadersVisibility="None"/>
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="20" Background="Transparent" CornerRadius="10"
+                BorderBrush="#F5ECDB" BorderThickness="2">
+            <DataGrid Name="Data" Background="Transparent" BorderBrush="Transparent" Foreground="#6A744F"
+                      HeadersVisibility="None" />
         </Border>
-        
+
         <StackPanel Grid.Column="2" Grid.RowSpan="3" Margin="20" Grid.Row="0">
-            <Border Margin="10, 2, 10, 2" CornerRadius="10, 10, 2, 2" BorderThickness="1" Background="#F5ECDB" BorderBrush="#6A744F">
-                <Button Content="Выбрать файл" Name="PickerFile" Padding="10" Click="PickerFile_OnClick" Background="Transparent" Foreground="#6A744F" BorderBrush="Transparent"></Button>
+            <Border Margin="10, 2, 10, 2" CornerRadius="10, 10, 2, 2" BorderThickness="1" Background="#F5ECDB"
+                    BorderBrush="#6A744F">
+                <Button Content="Выбрать файл" Name="PickerFile" Padding="10" Click="PickerFile_OnClick"
+                        Background="Transparent" Foreground="#6A744F" BorderBrush="Transparent" />
             </Border>
             <Border Margin="10, 2, 10, 5" CornerRadius="2, 2, 10, 10" Background="#6A744F">
-                <Button Content="Применить" Name="ApplyBtn" Padding="10" Click="PickerFile_OnClick" Background="Transparent" Foreground="White" BorderBrush="Transparent"></Button>
+                <Button Content="Применить" Name="ApplyBtn" Padding="10" Click="PickerFile_OnClick"
+                        Background="Transparent" Foreground="White" BorderBrush="Transparent" />
             </Border>
-            <Separator Margin="20"></Separator>
+            <Separator Margin="20" />
             <Border Margin="10, 2" Background="#F5ECDB" CornerRadius="10, 10, 2, 2">
-                <Button Content="Наименьшие" Padding="5" Foreground="#6A744F" Name="MinimumBtn" Background="Transparent" BorderBrush="Transparent"/>
+                <Button Content="Наименьшие" Padding="5" Foreground="#6A744F" Name="MinimumBtn"
+                        Background="Transparent" BorderBrush="Transparent" />
             </Border>
             <Border Margin="10, 2" CornerRadius="2, 2, 10, 10" Background="#F5ECDB">
-                <Button Content="Наибольшие" Padding="5" Name="MaximumBtn" Foreground="#6A744F" Background="Transparent" BorderBrush="Transparent"/>
+                <Button Content="Наибольшие" Padding="5" Name="MaximumBtn" Foreground="#6A744F"
+                        Background="Transparent" BorderBrush="Transparent" />
             </Border>
-            <TextBlock Text="Или выберите дату и время: " TextWrapping="Wrap" Margin="10"/>
-            <Border Margin="10" BorderBrush="#6A744F" BorderThickness="1" CornerRadius="10" Padding="5" Background="White">
-                <DatePicker Name="Picker" Background="Transparent" BorderBrush="Transparent"></DatePicker>
+            <TextBlock Text="Или выберите дату и время: " TextWrapping="Wrap" Margin="10" />
+            <Border Margin="10" BorderBrush="#6A744F" BorderThickness="1" CornerRadius="10" Padding="5"
+                    Background="White">
+                <DatePicker Name="Picker" Background="Transparent" BorderBrush="Transparent" />
             </Border>
         </StackPanel>
     </Grid>

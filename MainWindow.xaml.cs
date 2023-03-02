@@ -3,33 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media.TextFormatting;
+using Microsoft.Office.Interop.Excel;
 using Microsoft.Win32;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AstrologyApp
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
-        public class ReferenceItem
-        {
-            public string Date { get; set; }
-            public TimeSpan Time { get; set; }
-            public int ConditionalUnits { get; set; }
-
-            public ReferenceItem(string date, TimeSpan time, int conditionalUnits)
-            {
-                this.Date = date;
-                this.Time = time;
-                this.ConditionalUnits = conditionalUnits;
-            }
-        }
-
         public List<ReferenceItem> AstrologyData = new List<ReferenceItem>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,7 +36,7 @@ namespace AstrologyApp
             openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
             if (openFileDialog.ShowDialog() == true)
             {
-                var excelApp = new Microsoft.Office.Interop.Excel.ApplicationClass();
+                var excelApp = new ApplicationClass();
                 excelApp.Visible = false;
                 var workbook = excelApp.Workbooks.Open(openFileDialog.FileName);
                 var worksheet = workbook.Sheets[1];
@@ -60,6 +45,25 @@ namespace AstrologyApp
                 workbook.Close(false);
                 excelApp.Quit();
             }
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            PickerFile_OnClick(sender, e);
+        }
+
+        public class ReferenceItem
+        {
+            public ReferenceItem(string date, TimeSpan time, int conditionalUnits)
+            {
+                Date = date;
+                Time = time;
+                ConditionalUnits = conditionalUnits;
+            }
+
+            public string Date { get; set; }
+            public TimeSpan Time { get; set; }
+            public int ConditionalUnits { get; set; }
         }
     }
 }
