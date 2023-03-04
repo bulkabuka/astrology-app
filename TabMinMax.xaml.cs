@@ -46,8 +46,6 @@ namespace AstrologyApp
             if (ExcelPath.excelPath == null)
             {
                 MessageBox.Show("Не выбран файл таблицы.", "Ошибка");
-                
-                return;
             }
             else
             {

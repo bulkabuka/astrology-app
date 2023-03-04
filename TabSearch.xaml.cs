@@ -25,11 +25,11 @@ namespace AstrologyApp
                     Content = i
                 };
                 hoursItems.Add(item);
-
             }
 
-            ComboBox.ItemsSource = hoursItems;
+            TimeBox.ItemsSource = hoursItems;
         }
+
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
@@ -48,60 +48,46 @@ namespace AstrologyApp
                             ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
                         });
                         var dataTable = dataSet.Tables[0];
-                        
+
                         // Set the DataTable as the DataGrid's ItemsSource
                         DataGrid.ItemsSource = dataTable.DefaultView;
                         var column = DataGrid.Columns[1] as DataGridTextColumn;
                         if (column != null) column.Binding.StringFormat = "HH:mm";
                         var column1 = DataGrid.Columns[0] as DataGridTextColumn;
                         if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
+                        CoolApplyButton.IsEnabled = true;
                     }
                 }
             }
         }
+
         private void ApplyBtn_OnClick1(object sender, RoutedEventArgs e)
         {
+            // 1 января 1950 г.
             if (DatePick.SelectedDate == null)
             {
                 MessageBox.Show("Date is not selected!");
             }
-            if (DatePick.SelectedDate != null)
+            else
             {
                 DateTime selectedDate = (DateTime)DatePick.SelectedDate;
-                //Refresh.IsEnabled = true;
+                var dataTable = (DataGrid.ItemsSource as DataView)?.Table.DefaultView;
+                var row = dataTable.Table.Rows[1];
                 
-                // Проходимся по всем строкам в DataGrid
-                foreach (DataRowView row in DataGrid.Items)
+                if (TimeBox.SelectedValue != null)
                 {
-                    DateTime rowDate = (DateTime)row["Дата"];
-
-                    // Если дата строки соответствует выбранной дате, то отображаем строку
-                    if (rowDate.Date == selectedDate.Date)
-                    {
-                        row.Row.Table.DefaultView.RowFilter = $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}'";
-                        // Если в таблице используется фильтрация, то нужно сбросить ее, чтобы отобразить все строки
-                        DataGrid.Items.Refresh();
-                        return;
-                    }
-
-                    /*if (ComboBox.SelectedItem != null)
-                    {
-                        var selectedTime = ComboBox.SelectedValue as string;
-                        var SelectedItem = new TimeSpan(0,Convert.ToInt32(selectedTime),0,0);
-                        foreach (DataRowView row1 in DataGrid.Items)
-                        {
-                            var rowTime = (TimeSpan)row["Время"];
-                            if (rowTime.Hours == SelectedItem.Hours)
-                            {
-                                row.Row.Table.DefaultView.RowFilter = $"[Время] = '{rowTime:HH:mm:ss}'";
-                                DataGrid.Items.Refresh();
-                                return;
-                            }
-                        }
-                    }*/
+                    string normalTime = (TimeBox.SelectedValue as ComboBoxItem)?.Content.ToString();
+                    normalTime = "1899-12-31 " + (normalTime.Length == 2 ? normalTime : "0" + normalTime) + ":00:00";
+                    dataTable.RowFilter =
+                        $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}' AND [Время] = '{normalTime}'";
                 }
-                
-                DataGrid.ItemsSource = null;
+                else
+                    dataTable.RowFilter = $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}'";
+
+
+                DataGrid.ItemsSource = dataTable;
+
+                //Refresh.IsEnabled = true;
             }
         }
 
