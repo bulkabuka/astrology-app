@@ -9,6 +9,13 @@
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ColumnHeader" TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#EADDFF"></Setter>
+                <Setter Property="Foreground" Value="#6750A4"></Setter>
+            </Style>
+            <Style x:Key="BordersData" TargetType="DataGridCell">
+                <Setter Property="BorderBrush" Value="#79747E"></Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

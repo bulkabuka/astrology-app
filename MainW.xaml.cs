@@ -12,10 +12,8 @@ namespace AstrologyApp
         {
             InitializeComponent();
             Theme.Apply(ThemeType.Light, WindowBackdropType.Mica, false);
-            var primaryAccent = Color.FromRgb(106, 116, 79);
-            var secondaryAccent = Color.FromRgb(211, 197, 168);
-            var tertiaryAccent = Color.FromRgb(245, 236, 219);
-            Accent.Apply(primaryAccent, primaryAccent, secondaryAccent, tertiaryAccent);
+            var primaryAccent = Color.FromRgb(103, 80, 164);
+            Accent.Apply(primaryAccent, ThemeType.Light, false);
             var controls = new Collection<TabItem>();
             controls.Add(new TabItem { Header = "Поиск", Content = new Frame { Content = new TabSearch() } });
             controls.Add(new TabItem { Header = "Показатели", Content = new Frame { Content = new TabMinMax() } });

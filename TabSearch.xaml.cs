@@ -68,7 +68,7 @@ namespace AstrologyApp
             if (DatePick.SelectedDate != null)
             {
                 DateTime selectedDate = (DateTime)DatePick.SelectedDate;
-                Refresh.IsEnabled = true;
+                //Refresh.IsEnabled = true;
                 
                 // Проходимся по всем строкам в DataGrid
                 foreach (DataRowView row in DataGrid.Items)
@@ -84,7 +84,7 @@ namespace AstrologyApp
                         return;
                     }
 
-                    if (ComboBox.SelectedItem != null)
+                    /*if (ComboBox.SelectedItem != null)
                     {
                         var selectedTime = ComboBox.SelectedValue as string;
                         var SelectedItem = new TimeSpan(0,Convert.ToInt32(selectedTime),0,0);
@@ -98,8 +98,8 @@ namespace AstrologyApp
                                 return;
                             }
                         }
-
                     }
+                    */
                 }
                 
                 DataGrid.ItemsSource = null;
