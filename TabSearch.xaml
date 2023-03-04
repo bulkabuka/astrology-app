@@ -23,7 +23,7 @@
         <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="20" BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
             <Grid>
                 <Border Name="BDRounded" CornerRadius="20" Background="White"></Border>
-                <ui:DataGrid IsHitTestVisible="False" RowDetailsVisibilityMode="Collapsed" Name="DataGrid" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
+                <ui:DataGrid VerticalScrollBarVisibility="Visible" IsReadOnly="True"  RowDetailsVisibilityMode="Collapsed" Name="DataGrid" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
                     <DataGrid.OpacityMask><VisualBrush Visual="{Binding ElementName=BDRounded}"></VisualBrush></DataGrid.OpacityMask>
                 </ui:DataGrid>
             </Grid>
@@ -59,11 +59,11 @@
             
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Label Content="Выберите время (по МСК)" VerticalAlignment="Top" Margin="10, 0" Foreground="#6750A4"></Label>
-                <ComboBox Name="ComboBox" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></ComboBox>
+                <ComboBox Name="TimeBox" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></ComboBox>
             </StackPanel>
             
             <Border Grid.Column="2" VerticalAlignment="Stretch" CornerRadius="20" Background="#6750A4" Padding="3" HorizontalAlignment="Stretch" Margin="20" MaxHeight="70">
-                <ui:Button Content="Применить" Appearance="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <ui:Button IsEnabled="False" Name="CoolApplyButton" Click="ApplyBtn_OnClick1" Content="Применить" Appearance="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Border>
         </Grid>
         <!--
