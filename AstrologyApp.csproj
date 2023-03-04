@@ -78,6 +78,9 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
+        <Compile Include="Details.xaml.cs">
+          <DependentUpon>Details.xaml</DependentUpon>
+        </Compile>
         <Compile Include="ExcelPath.cs" />
         <Compile Include="TabMinMax.xaml.cs">
             <DependentUpon>TabMinMax.xaml</DependentUpon>
@@ -85,6 +88,7 @@
         <Compile Include="TabSearch.xaml.cs">
             <DependentUpon>TabSearch.xaml</DependentUpon>
         </Compile>
+        <Page Include="Details.xaml" />
         <Page Include="MainW.xaml" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>

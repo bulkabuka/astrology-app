@@ -98,8 +98,7 @@ namespace AstrologyApp
                                 return;
                             }
                         }
-                    }
-                    */
+                    }*/
                 }
                 
                 DataGrid.ItemsSource = null;
@@ -108,7 +107,7 @@ namespace AstrologyApp
 
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
+            /*using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
@@ -126,7 +125,7 @@ namespace AstrologyApp
                     var column1 = DataGrid.Columns[0] as DataGridTextColumn;
                     if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
                 }
-            }
+            }*/
         }
     }
 }
