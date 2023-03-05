@@ -85,6 +85,7 @@
           <DependentUpon>Details.xaml</DependentUpon>
         </Compile>
         <Compile Include="ExcelPath.cs" />
+        <Compile Include="Navigator.cs" />
         <Compile Include="TabMinMax.xaml.cs">
             <DependentUpon>TabMinMax.xaml</DependentUpon>
         </Compile>

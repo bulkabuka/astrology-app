@@ -32,6 +32,8 @@ namespace AstrologyApp
 
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            Title.Visibility = Visibility.Hidden;
+            LoadingRing.Visibility = Visibility.Visible;
             var openFileDialog = new Microsoft.Win32.OpenFileDialog();
             openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
 
@@ -56,6 +58,8 @@ namespace AstrologyApp
                         var column1 = DataGrid.Columns[0] as DataGridTextColumn;
                         if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
                         CoolApplyButton.IsEnabled = true;
+                        LoadingRing.Visibility = Visibility.Collapsed;
+                        Title.Visibility = Visibility.Visible;
                     }
                 }
             }
@@ -87,13 +91,13 @@ namespace AstrologyApp
 
                 DataGrid.ItemsSource = dataTable;
 
-                //Refresh.IsEnabled = true;
+                Refresh.IsEnabled = true;
             }
         }
 
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            /*using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
+            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
@@ -111,7 +115,17 @@ namespace AstrologyApp
                     var column1 = DataGrid.Columns[0] as DataGridTextColumn;
                     if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
                 }
-            }*/
+            }
+        }
+
+        private void MinMaxBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ExcelPath.excelPath == null)
+            {
+                MessageBox.Show("Не выбран файл таблицы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            Navigator.frame.Content = new TabMinMax();
         }
     }
 }

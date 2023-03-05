@@ -43,32 +43,30 @@ namespace AstrologyApp
 
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (ExcelPath.excelPath == null)
+            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
             {
-                MessageBox.Show("Не выбран файл таблицы.", "Ошибка");
-            }
-            else
-            {
-                using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    // Read the data from the first worksheet
+                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
                     {
-                        // Read the data from the first worksheet
-                        var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
-                        {
-                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                        });
-                        var dataTable = dataSet.Tables[0];
+                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                    });
+                    var dataTable = dataSet.Tables[0];
 
-                        // Set the DataTable as the DataGrid's ItemsSource
-                        DataGrid.ItemsSource = dataTable.DefaultView;
-                        var column = DataGrid.Columns[1] as DataGridTextColumn;
-                        if (column != null) column.Binding.StringFormat = "HH:mm";
-                        var column1 = DataGrid.Columns[0] as DataGridTextColumn;
-                        if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
+                    // Set the DataTable as the DataGrid's ItemsSource
+                    DataGrid.ItemsSource = dataTable.DefaultView;
+                    var column = DataGrid.Columns[1] as DataGridTextColumn;
+                    if (column != null) column.Binding.StringFormat = "HH:mm";
+                    var column1 = DataGrid.Columns[0] as DataGridTextColumn;
+                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
                     }
                 }
-            }
+        }
+
+        private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            Navigator.frame.Content = new TabSearch();
         }
     }
 }

@@ -4,9 +4,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 xmlns:astrologyApp="clr-namespace:AstrologyApp"
                  mc:Ignorable="d"
-                 Title="MainW" Height="680" Width="800"
-                 MinHeight="680" MinWidth="800">
+                 Title="MainW" Height="900" Width="800"
+                 MinHeight="900" MinWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,7 +21,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <ui:TitleBar Grid.ColumnSpan="3" Title="Точка опоры. В личном" Background="#6750A4" Foreground="White"
-                     ButtonsForeground="White" />
-        <TabControl Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="0" Name="Control" Margin="10" />
+                     ButtonsForeground="White"></ui:TitleBar>
+        <Frame Name="Main" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="0" Margin="10"/>
     </Grid>
 </ui:FluentWindow>

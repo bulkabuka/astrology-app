@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Wpf.Ui.Appearance;
@@ -11,13 +13,12 @@ namespace AstrologyApp
         public MainW()
         {
             InitializeComponent();
+            FontFamily = new FontFamily("Segoe UI");
             Theme.Apply(ThemeType.Light, WindowBackdropType.Mica, false);
             var primaryAccent = Color.FromRgb(103, 80, 164);
             Accent.Apply(primaryAccent, ThemeType.Light, false);
-            var controls = new Collection<TabItem>();
-            controls.Add(new TabItem { Header = "Поиск", Content = new Frame { Content = new TabSearch() } });
-            controls.Add(new TabItem { Header = "Показатели", Content = new Frame { Content = new TabMinMax() } });
-            Control.ItemsSource = controls;
+            Main.Content = new TabSearch();
+            Navigator.frame = Main;
         }
     }
 }

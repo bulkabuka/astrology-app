@@ -15,19 +15,50 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-
-        <ui:DataGrid Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Name="DataGrid" Margin="10" />
-        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10" Orientation="Vertical" Grid.RowSpan="3"
-                    HorizontalAlignment="Stretch">
-            <ui:Button Name="MaxBtn" Content="Наибольшие" Margin="10" Click="MaxBtn_OnClick" Appearance="Secondary" Icon="ArrowUp24"
-                       HorizontalAlignment="Stretch" />
-            <ui:Button Name="MinBtn" Content="Наименьшие" Margin="10" Click="MinBtn_OnClick" Appearance="Secondary" Icon="ArrowDown24"
-                       HorizontalAlignment="Stretch" />
-        </StackPanel>
+        
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="#E6E1E5" CornerRadius="20"
+                Padding="15, 10" Margin="30, 10" MaxHeight="80" MaxWidth="800">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="2" Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
+                           TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"/>
+                <ui:Button Grid.Column="3" MaxHeight="40" Margin="10, 0" MaxWidth="200" Name="MinMaxBtn" Content="К общей базе" Click="BackAllBtn_OnClick" Style="{DynamicResource SecondaryMaterialButton}"/>
+            </Grid>
+        </Border>
+        
+        <Viewbox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock FontWeight="Semibold" Text="Точка опоры. В личном" Foreground="#6750A4" Margin="0, 12, 0, 12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Viewbox>
+        <TextBlock MaxWidth="800" Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Left" HorizontalAlignment="Stretch" Grid.Row="2" Margin="30, 2" Foreground="#6750A4" Text="Наибольшие показатели" FontSize="16"></TextBlock>
+        <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" CornerRadius="20" BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
+            <Grid>
+                <Border Name="BDRounded" CornerRadius="20" Background="White"></Border>
+                <ui:DataGrid HeadersVisibility="Column" CellStyle="{StaticResource Cells}" RowHeight="50" ColumnWidth="*" VerticalScrollBarVisibility="Visible" IsReadOnly="True"  RowDetailsVisibilityMode="Collapsed" Name="DataGrid" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
+                    <DataGrid.OpacityMask><VisualBrush Visual="{Binding ElementName=BDRounded}"></VisualBrush></DataGrid.OpacityMask>
+                </ui:DataGrid>
+            </Grid>
+        </Border>
+        
+        <TextBlock MaxWidth="800"  Grid.Column="0" Grid.ColumnSpan="3" TextAlignment="Left" HorizontalAlignment="Stretch" Grid.Row="4" Margin="30, 2" Foreground="#6750A4" FontSize="16" Text="Наименьшие показатели"></TextBlock>
+        <Border Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" CornerRadius="20" BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
+            <Grid>
+                <Border Name="BDRounded1" CornerRadius="20" Background="White"></Border>
+                <ui:DataGrid HeadersVisibility="Column" CellStyle="{StaticResource Cells}" RowHeight="50" ColumnWidth="*" VerticalScrollBarVisibility="Visible" IsReadOnly="True"  RowDetailsVisibilityMode="Collapsed" Name="DataGrid1" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
+                    <DataGrid.OpacityMask><VisualBrush Visual="{Binding ElementName=BDRounded1}"></VisualBrush></DataGrid.OpacityMask>
+                </ui:DataGrid>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

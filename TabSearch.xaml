@@ -18,34 +18,43 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Точка опоры. В личном" Foreground="#6750A4" FontSize="26" Margin="0, 24, 0, 24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" CornerRadius="20" BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
+        <Viewbox Grid.ColumnSpan="4">
+            <TextBlock Name="Title" FontWeight="Semibold" Text="Точка опоры. В личном" Foreground="#6750A4" Margin="0, 12, 0, 12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Viewbox>
+        <ui:ProgressRing Name="LoadingRing" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0, 80, 0, 0" IsIndeterminate="True" Visibility="Collapsed"/>
+        <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" CornerRadius="20" BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
             <Grid>
                 <Border Name="BDRounded" CornerRadius="20" Background="White"></Border>
-                <ui:DataGrid VerticalScrollBarVisibility="Visible" IsReadOnly="True"  RowDetailsVisibilityMode="Collapsed" Name="DataGrid" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
+                <ui:DataGrid HeadersVisibility="Column" CellStyle="{StaticResource Cells}" RowHeight="50" ColumnWidth="*" VerticalScrollBarVisibility="Visible" IsReadOnly="True"  RowDetailsVisibilityMode="Collapsed" Name="DataGrid" ColumnHeaderStyle="{StaticResource ColumnHeader}" BorderBrush="Transparent">
                     <DataGrid.OpacityMask><VisualBrush Visual="{Binding ElementName=BDRounded}"></VisualBrush></DataGrid.OpacityMask>
                 </ui:DataGrid>
             </Grid>
         </Border>
         
-        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="#E6E1E5" CornerRadius="10"
-                Padding="20" Margin="30, 10" MaxHeight="150" MaxWidth="800">
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="#E6E1E5" CornerRadius="20"
+                Padding="15, 10" Margin="30, 10" MaxHeight="80" MaxWidth="800">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.ColumnSpan="2" Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
-                           TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="16"/>
-                <Border Grid.Column="2" CornerRadius="20" Background="#6750A4" Padding="3" HorizontalAlignment="Stretch" Margin="20" VerticalAlignment="Stretch" MaxHeight="70">
-                    <ui:Button Name="FilePickBtn" HorizontalAlignment="Stretch" Content="Открыть файл" Appearance='Transparent' Foreground="White" BorderBrush="Transparent" Click="ApplyBtn_OnClick" VerticalAlignment="Stretch"/>
-                </Border>
+                           TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"/>
+                <Button MaxHeight="40" MaxWidth="200" Margin="10, 0, 5, 0" Grid.Column="2"  Style="{DynamicResource ButtonMaterial}" 
+                        Name="FilePickBtn" Content="Открыть файл" Click="ApplyBtn_OnClick" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="3" MaxWidth="200" Margin="5, 0" Style="{DynamicResource ButtonMaterial}" 
+                        Name="MinMaxBtn" Content="Мин/макс" Click="MinMaxBtn_OnClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Button ToolTipService.ShowOnDisabled="True" Grid.Column="4" MaxWidth="200" HorizontalAlignment="Stretch" Margin="5, 0" IsEnabled="False" 
+                        Name="Refresh" Style="{DynamicResource SecondaryMaterialButton}" Content="Сбросить" Click="Refresh_OnClick" VerticalAlignment="Stretch" ToolTip="Недоступно пока не применен фильтр"/>
             </Grid>
         </Border>
         
-        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="20" MaxWidth="800">
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="30, 5, 30, 30" MaxWidth="800" HorizontalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -54,44 +63,14 @@
             
             <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Label Content="Выберите дату" VerticalAlignment="Top" Margin="10, 0" Foreground="#6750A4"></Label>
-                <DatePicker Name="DatePick" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></DatePicker>
+                <DatePicker BorderBrush="#49454F" BorderThickness="0, 0, 0, 1" Name="DatePick" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" Height="40" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></DatePicker>
             </StackPanel>
             
             <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Label Content="Выберите время (по МСК)" VerticalAlignment="Top" Margin="10, 0" Foreground="#6750A4"></Label>
-                <ComboBox Name="TimeBox" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></ComboBox>
+                <ComboBox BorderBrush="#49454F" BorderThickness="0, 0, 0, 1" Height="40" Name="TimeBox" HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50" Background="#E7E0EC" Foreground="#49454F"></ComboBox>
             </StackPanel>
-            
-            <Border Grid.Column="2" VerticalAlignment="Stretch" CornerRadius="20" Background="#6750A4" Padding="3" HorizontalAlignment="Stretch" Margin="20" MaxHeight="70">
-                <ui:Button IsEnabled="False" Name="CoolApplyButton" Click="ApplyBtn_OnClick1" Content="Применить" Appearance="Transparent" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            </Border>
+            <ui:Button ToolTipService.ShowOnDisabled="True" ToolTip="Недоступно пока не выбран файл" Grid.Column="2" MaxHeight="40" MinWidth="120" MaxWidth="200" Margin="30, 0,0, 0" HorizontalAlignment="Stretch" Style="{DynamicResource ButtonMaterial}" IsEnabled="False" Name="CoolApplyButton" Click="ApplyBtn_OnClick1" Content="Применить"/>
         </Grid>
-        <!--
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch">
-            <DatePicker Name="DatePick" Margin="10" MinWidth="100" HorizontalAlignment="Stretch"/>
-            <ComboBox Name="ComboBox" Margin="10" MinWidth="100" HorizontalAlignment="Stretch"/>
-            <Border VerticalAlignment="Center" CornerRadius="20" Background="#6750A4" Padding="3" HorizontalAlignment="Stretch" Margin="20">
-                <ui:Button Content="Применить" Appearance='Transparent' Foreground="White" BorderBrush="Transparent"/>
-            </Border>
-        </StackPanel>-->
-        <!--<Border Background="#F5ECDB" CornerRadius="10" Padding="10" MaxWidth="250" Margin="10"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <TextBlock Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
-                       TextWrapping="Wrap" Foreground="#615A4C" />
-        </Border>
-        <ui:Button Name="Refresh" Icon="ArrowCounterclockwise24" Grid.Column="1" Grid.Row="0" Content="Сброс" Click="Refresh_OnClick" HorizontalAlignment="Right" Margin="10" IsEnabled="False"></ui:Button>
-        <ui:DataGrid Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Name="DataGrid" Margin="10" />
-        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10" Orientation="Vertical" Grid.RowSpan="3"
-                    HorizontalAlignment="Stretch">
-            <ui:Button Name="FilePickBtn" Content="Выбрать файл" Margin="10" Click="ApplyBtn_OnClick" Appearance="Secondary"
-                       Icon="DocumentAdd24" HorizontalAlignment="Stretch" />
-            <ui:Button Name="ApplyBtn" Content="Применить" Margin="10" Click="ApplyBtn_OnClick1" Appearance="Primary" Icon="Checkmark24"
-                       HorizontalAlignment="Stretch" />
-            <TextBlock Text="Выберите дату" Margin="10" />
-            <DatePicker Name="DatePick" Margin="10, 2" />
-            <TextBlock Text="Выберите время (в часах)" Margin="10" />
-            <ComboBox Name="ComboBox" Margin="10, 2" />
-        </StackPanel>
-        -->
     </Grid>
 </Page>
