@@ -30,6 +30,31 @@ namespace AstrologyApp
             TimeBox.ItemsSource = hoursItems;
         }
 
+        public void FindExcel(string excelPath)
+        {
+            using (var stream = File.Open(excelPath, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    // Read the data from the first worksheet
+                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    {
+                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                    });
+                    var dataTable = dataSet.Tables[0];
+                    // Set the DataTable as the DataGrid's ItemsSource
+                    DataGrid.ItemsSource = dataTable.DefaultView;
+                    var column = DataGrid.Columns[1] as DataGridTextColumn;
+                    if (column != null) column.Binding.StringFormat = "HH:mm";
+                    var column1 = DataGrid.Columns[0] as DataGridTextColumn;
+                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
+                    CoolApplyButton.IsEnabled = true;
+                    LoadingRing.Visibility = Visibility.Collapsed;
+                    Title.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
             Title.Visibility = Visibility.Hidden;
@@ -40,28 +65,7 @@ namespace AstrologyApp
             if (openFileDialog.ShowDialog() == true)
             {
                 ExcelPath.excelPath = openFileDialog.FileName;
-                using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read))
-                {
-                    using (var reader = ExcelReaderFactory.CreateReader(stream))
-                    {
-                        // Read the data from the first worksheet
-                        var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
-                        {
-                            ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                        });
-                        var dataTable = dataSet.Tables[0];
-
-                        // Set the DataTable as the DataGrid's ItemsSource
-                        DataGrid.ItemsSource = dataTable.DefaultView;
-                        var column = DataGrid.Columns[1] as DataGridTextColumn;
-                        if (column != null) column.Binding.StringFormat = "HH:mm";
-                        var column1 = DataGrid.Columns[0] as DataGridTextColumn;
-                        if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
-                        CoolApplyButton.IsEnabled = true;
-                        LoadingRing.Visibility = Visibility.Collapsed;
-                        Title.Visibility = Visibility.Visible;
-                    }
-                }
+                FindExcel(ExcelPath.excelPath);
             }
         }
 
@@ -120,12 +124,29 @@ namespace AstrologyApp
 
         private void MinMaxBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            ExcelPath.DataTable = ((DataView)DataGrid.ItemsSource).Table;
             if (ExcelPath.excelPath == null)
             {
                 MessageBox.Show("Не выбран файл таблицы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             Navigator.frame.Content = new TabMinMax();
+        }
+
+        private void TabSearch_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var exePath = AppDomain.CurrentDomain.BaseDirectory;
+                ExcelPath.excelPath = Path.Combine(exePath, "AstrologyExcel.xlsx");
+               FindExcel(ExcelPath.excelPath);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Удостоверьтесь, что excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией(кнопка) " +
+                                "или откройте файл вручную",
+                    "Ошибка считывания файла! ");
+            }
         }
     }
 }

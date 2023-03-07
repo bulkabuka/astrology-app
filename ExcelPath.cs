@@ -5,6 +5,6 @@ namespace AstrologyApp
     public static class ExcelPath
     {
         public static string excelPath;
-        public static DataSet DataItems;
+        public static DataTable DataTable;
     }
 }

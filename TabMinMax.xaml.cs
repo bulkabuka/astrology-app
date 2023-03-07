@@ -43,25 +43,26 @@ namespace AstrologyApp
 
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
-            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
+            DataTable clonedTable = ExcelPath.DataTable.Clone();
+            foreach (DataRow row in ExcelPath.DataTable.Rows)
             {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
-                {
-                    // Read the data from the first worksheet
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
-                    {
-                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
-                    });
-                    var dataTable = dataSet.Tables[0];
-
-                    // Set the DataTable as the DataGrid's ItemsSource
-                    DataGrid.ItemsSource = dataTable.DefaultView;
-                    var column = DataGrid.Columns[1] as DataGridTextColumn;
-                    if (column != null) column.Binding.StringFormat = "HH:mm";
-                    var column1 = DataGrid.Columns[0] as DataGridTextColumn;
-                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
-                    }
-                }
+                clonedTable.ImportRow(row);
+            }
+            DataGrid.ItemsSource = clonedTable.DefaultView;
+            DataGrid1.ItemsSource = clonedTable.DefaultView;
+            if (DataGrid.ItemsSource != null && DataGrid1.ItemsSource != null)
+            {
+                ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
+                ICollectionView dataView1 = CollectionViewSource.GetDefaultView(DataGrid1.ItemsSource);
+                // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
+                dataView.SortDescriptions.Clear();
+                dataView1.SortDescriptions.Clear();
+                dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
+                dataView1.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
+                // Обновляем отображение данных в DataGrid
+                dataView.Refresh();
+                dataView1.Refresh();
+            }
         }
 
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
