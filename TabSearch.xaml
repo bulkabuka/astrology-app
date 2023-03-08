@@ -47,7 +47,7 @@
                 <TextBlock Grid.ColumnSpan="2" Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
                            TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"/>
                 <Button MaxHeight="40" MaxWidth="200" Margin="10, 0, 5, 0" Grid.Column="2"  Style="{DynamicResource ButtonMaterial}" 
-                        Name="FilePickBtn" Content="Открыть файл" Click="ApplyBtn_OnClick" HorizontalAlignment="Stretch"/>
+                        Name="FilePickBtn" Content="Инструкция" Click="ApplyBtn_OnClick" HorizontalAlignment="Stretch"/>
                 <Button Grid.Column="3" MaxWidth="200" Margin="5, 0" Style="{DynamicResource ButtonMaterial}" 
                         Name="MinMaxBtn" Content="Мин/макс" Click="MinMaxBtn_OnClick" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 <Button ToolTipService.ShowOnDisabled="True" Grid.Column="4" MaxWidth="200" HorizontalAlignment="Stretch" Margin="5, 0" IsEnabled="False" 

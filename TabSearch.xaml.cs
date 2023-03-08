@@ -57,16 +57,7 @@ namespace AstrologyApp
 
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Title.Visibility = Visibility.Hidden;
-            LoadingRing.Visibility = Visibility.Visible;
-            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                ExcelPath.excelPath = openFileDialog.FileName;
-                FindExcel(ExcelPath.excelPath);
-            }
+            throw new NotImplementedException();
         }
 
         private void ApplyBtn_OnClick1(object sender, RoutedEventArgs e)
@@ -74,7 +65,7 @@ namespace AstrologyApp
             // 1 января 1950 г.
             if (DatePick.SelectedDate == null)
             {
-                MessageBox.Show("Date is not selected!");
+                MessageBox.Show("Дата не выбрана");
             }
             else
             {
@@ -143,9 +134,9 @@ namespace AstrologyApp
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Удостоверьтесь, что excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией(кнопка) " +
+                MessageBox.Show("Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией (кнопка) " +
                                 "или откройте файл вручную",
-                    "Ошибка считывания файла! ");
+                    "Ошибка считывания файла");
             }
         }
     }
