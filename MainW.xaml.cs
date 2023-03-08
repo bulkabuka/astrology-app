@@ -13,10 +13,6 @@ namespace AstrologyApp
         public MainW()
         {
             InitializeComponent();
-            FontFamily = new FontFamily("Segoe UI");
-            Theme.Apply(ThemeType.Light, WindowBackdropType.Mica, false);
-            var primaryAccent = Color.FromRgb(103, 80, 164);
-            Accent.Apply(primaryAccent, ThemeType.Light, false);
             Main.Content = new TabSearch();
             Navigator.frame = Main;
         }

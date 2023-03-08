@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Media;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls.Window;
 
 namespace AstrologyApp
@@ -8,6 +10,10 @@ namespace AstrologyApp
         public IntroWindow()
         {
             InitializeComponent();
+            FontFamily = new FontFamily("Segoe UI");
+            Theme.Apply(ThemeType.Light, WindowBackdropType.Mica, false);
+            var primaryAccent = Color.FromRgb(103, 80, 164);
+            Accent.Apply(primaryAccent, ThemeType.Light, false);
             var intro_text = @"Здесь будет располагаться текст соглашения, он будет длинный и важный,
                 а сейчас здесь просто плейсхолдер в пару строк.
                 Здесь будет располагаться текст соглашения, он будет длинный и важный,
