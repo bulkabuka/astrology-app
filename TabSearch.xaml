@@ -54,13 +54,16 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <TextBlock Name="Whore" Grid.ColumnSpan="2"
-                           Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
+                           Text=""
                            TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center"
                            HorizontalAlignment="Stretch" FontSize="14" />
+                <ui:ProgressRing Name="LoadingRingText" Grid.ColumnSpan="2"
+                                  IsIndeterminate="True" VerticalAlignment="Center" Visibility="Visible" />
+                
                 <Button MaxHeight="40" MaxWidth="200" Margin="10, 0, 5, 0" Grid.Column="2"
                         Style="{DynamicResource ButtonMaterial}"
                         Name="FilePickBtn" Content="Инструкция" Click="ApplyBtn_OnClick" HorizontalAlignment="Stretch" />
-                <Button Grid.Column="3" MaxWidth="200" Margin="5, 0" Style="{DynamicResource ButtonMaterial}"
+                <Button IsEnabled="False" Grid.Column="3" MaxWidth="200" Margin="5, 0" Style="{DynamicResource ButtonMaterial}"
                         Name="MinMaxBtn" Content="Мин/макс" Click="MinMaxBtn_OnClick" VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch" />
                 <Button ToolTipService.ShowOnDisabled="True" Grid.Column="4" MaxWidth="200"

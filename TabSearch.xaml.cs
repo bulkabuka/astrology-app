@@ -39,6 +39,15 @@ namespace AstrologyApp
                         ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
                     });
                     var dataTable = dataSet.Tables[0];
+                    var fio = dataTable.Rows[0].ItemArray[3].ToString();
+                    var date = dataTable.Rows[0].ItemArray[4] as DateTime?;
+                    Dispatcher.Invoke(() =>
+                        {
+                            Whore.Text =
+                                $"Расчёт совместимости партнёров для: {fio}, {date?.ToString("dd/MM/yyyy, H")} часов";
+                            LoadingRingText.Visibility = Visibility.Collapsed;
+                        }
+                    );
                     // Set the DataTable as the DataGrid's ItemsSource
                     Dispatcher.Invoke(() => DataGrid.ItemsSource = dataTable.DefaultView);
                     var column = DataGrid.Columns[1] as DataGridTextColumn;
@@ -67,6 +76,7 @@ namespace AstrologyApp
                                 column2.Visibility = Visibility.Visible;
                             }
                         });
+                    Dispatcher.Invoke(() => { MinMaxBtn.IsEnabled = true; });
                 }
             }
         }
@@ -87,18 +97,18 @@ namespace AstrologyApp
             {
                 var selectedDate = (DateTime)DatePick.SelectedDate;
                 var dataTable = (DataGrid.ItemsSource as DataView)?.Table.DefaultView;
-                var row = dataTable.Table.Rows[1];
+                // var row = dataTable.Table.Rows[1];
 
                 if (TimeBox.SelectedValue != null)
                 {
                     var normalTime = (TimeBox.SelectedValue as ComboBoxItem)?.Content.ToString();
-                    normalTime = "1899-12-31 " + (normalTime.Length == 2 ? normalTime : "0" + normalTime) + ":00:00";
+                    normalTime = "1899-12-31 " + (normalTime?.Length == 2 ? normalTime : "0" + normalTime) + ":00:00";
                     dataTable.RowFilter =
-                        $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}' AND [Время] = '{normalTime}'";
+                        $"[Дата] = '{selectedDate.ToString("yyyy-MM-dd")}' AND [Время] = '{normalTime}'";
                 }
                 else
                 {
-                    dataTable.RowFilter = $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}'";
+                    dataTable.RowFilter = $"[Дата] = '{selectedDate.ToString("yyyy-MM-dd")}'";
                 }
 
 

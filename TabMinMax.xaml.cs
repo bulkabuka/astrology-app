@@ -29,30 +29,6 @@ namespace AstrologyApp
                 }
         }
 
-        private void MaxBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            var dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
-
-            // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-            dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
-
-            // Обновляем отображение данных в DataGrid
-            dataView.Refresh();
-        }
-
-        private void MinBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            var dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
-
-            // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-            dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
-
-            // Обновляем отображение данных в DataGrid
-            dataView.Refresh();
-        }
-
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
             var clonedTable = ExcelPath.DataTable.Clone();
@@ -85,7 +61,7 @@ namespace AstrologyApp
 
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Navigator.frame.Content = new TabSearch();
+            Navigator.frame.GoBack();
         }
     }
 }
