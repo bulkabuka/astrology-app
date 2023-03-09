@@ -6,5 +6,6 @@ namespace AstrologyApp
     {
         public static string excelPath;
         public static DataTable DataTable;
+        public static string whore;
     }
 }

@@ -26,7 +26,7 @@ namespace AstrologyApp
 
             TimeBox.ItemsSource = hoursItems;
         }
-
+        
         public void FindExcel(string excelPath)
         {
             using (var stream = File.Open(excelPath, FileMode.Open, FileAccess.Read))
@@ -43,8 +43,10 @@ namespace AstrologyApp
                     var date = dataTable.Rows[0].ItemArray[4] as DateTime?;
                     Dispatcher.Invoke(() =>
                         {
+                            
                             Whore.Text =
                                 $"Расчёт совместимости партнёров для: {fio}, {date?.ToString("dd/MM/yyyy, H")} часов";
+                            ExcelPath.whore = Whore.Text;
                             LoadingRingText.Visibility = Visibility.Collapsed;
                         }
                     );
@@ -97,7 +99,6 @@ namespace AstrologyApp
             {
                 var selectedDate = (DateTime)DatePick.SelectedDate;
                 var dataTable = (DataGrid.ItemsSource as DataView)?.Table.DefaultView;
-                // var row = dataTable.Table.Rows[1];
 
                 if (TimeBox.SelectedValue != null)
                 {

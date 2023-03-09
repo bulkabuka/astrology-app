@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -55,23 +55,24 @@
         <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
             <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
         </Reference>
-        <Reference Include="System"/>
-        <Reference Include="System.configuration"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
+        <Reference Include="System" />
+        <Reference Include="System.configuration" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Data.DataSetExtensions" />
         <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
             <HintPath>packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
         </Reference>
-        <Reference Include="System.IO.Compression"/>
-        <Reference Include="System.Security"/>
-        <Reference Include="System.Threading.Tasks"/>
-        <Reference Include="System.Xml"/>
+        <Reference Include="System.IO.Compression" />
+        <Reference Include="System.Security" />
+        <Reference Include="System.Threading.Tasks" />
+        <Reference Include="System.Xml" />
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
         </Reference>
-        <Reference Include="WindowsBase"/>
-        <Reference Include="PresentationCore"/>
-        <Reference Include="PresentationFramework"/>
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
         <Reference Include="Wpf.Ui, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
             <HintPath>packages\WPF-UI.3.0.0-preview.1\lib\net48\Wpf.Ui.dll</HintPath>
         </Reference>
@@ -84,20 +85,20 @@
         <Compile Include="Details.xaml.cs">
             <DependentUpon>Details.xaml</DependentUpon>
         </Compile>
-        <Compile Include="ExcelPath.cs"/>
+        <Compile Include="ExcelPath.cs" />
         <Compile Include="IntroWindow.xaml.cs">
             <DependentUpon>IntroWindow.xaml</DependentUpon>
         </Compile>
-        <Compile Include="Navigator.cs"/>
+        <Compile Include="Navigator.cs" />
         <Compile Include="TabMinMax.xaml.cs">
             <DependentUpon>TabMinMax.xaml</DependentUpon>
         </Compile>
         <Compile Include="TabSearch.xaml.cs">
             <DependentUpon>TabSearch.xaml</DependentUpon>
         </Compile>
-        <Page Include="Details.xaml"/>
-        <Page Include="IntroWindow.xaml"/>
-        <Page Include="MainW.xaml"/>
+        <Page Include="Details.xaml" />
+        <Page Include="IntroWindow.xaml" />
+        <Page Include="MainW.xaml" />
         <Compile Include="App.xaml.cs">
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
@@ -105,8 +106,8 @@
         <Compile Include="MainW.xaml.cs">
             <DependentUpon>MainW.xaml</DependentUpon>
         </Compile>
-        <Page Include="TabMinMax.xaml"/>
-        <Page Include="TabSearch.xaml"/>
+        <Page Include="TabMinMax.xaml" />
+        <Page Include="TabSearch.xaml" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs">
@@ -123,13 +124,13 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <None Include="App.config"/>
-        <None Include="packages.config"/>
+        <None Include="App.config" />
+        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="AstrologyExcel.xlsx">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

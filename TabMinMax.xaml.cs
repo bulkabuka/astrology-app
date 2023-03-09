@@ -1,5 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,32 +36,31 @@ namespace AstrologyApp
 
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var clonedTable = ExcelPath.DataTable.Clone();
-            var clonedTable2 = ExcelPath.DataTable.Clone();
-            foreach (DataRow row in ExcelPath.DataTable.Rows)
+            Whore2.Text = ExcelPath.whore;
+            Task.Run(async delegate
             {
-                clonedTable.ImportRow(row);
-                clonedTable2.ImportRow(row);
-            }
+                // Группируем по дате
+                var clonedTableQuery = ExcelPath.DataTable.Copy().AsEnumerable().GroupBy(r => r["Дата"]);
+                // Для таблицы максимума берём максимум по дням и сортируем по убыванию
+                var res1 = clonedTableQuery.Select(g => g.OrderByDescending(r => r["Условные единицы"]).First())
+                    .OrderByDescending(r => r["Условные единицы"]).Take(10)
+                    .CopyToDataTable().DefaultView;
+                // Для таблицы минимума берём минимум по дням и сортируем по возростанию
+                var res2 = clonedTableQuery.Select(g => g.OrderBy(r => r["Условные единицы"]).First())
+                    .OrderBy(r => r["Условные единицы"]).Take(10).CopyToDataTable()
+                    .DefaultView;
 
-            DataGrid.ItemsSource = clonedTable.DefaultView;
-            DataGrid1.ItemsSource = clonedTable2.DefaultView;
+                Dispatcher.Invoke(() =>
+                {
+                    DataGrid.ItemsSource = res1;
+                    DataGrid1.ItemsSource = res2;
 
-            if (DataGrid.ItemsSource != null && DataGrid1.ItemsSource != null)
-            {
-                // Создаем два разных ICollectionView для каждого DataGrid
-                var dataView = new CollectionViewSource { Source = DataGrid.ItemsSource }.View;
-                var dataView1 = new CollectionViewSource { Source = DataGrid1.ItemsSource }.View;
-
-                // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-                dataView.SortDescriptions.Clear();
-                dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
-
-                dataView1.SortDescriptions.Clear();
-                dataView1.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
-                VisibleColumns(DataGrid);
-                VisibleColumns(DataGrid1);
-            }
+                    VisibleColumns(DataGrid);
+                    VisibleColumns(DataGrid1);
+                    LoadingRing.Visibility = Visibility.Collapsed;
+                    LoadingRing2.Visibility = Visibility.Collapsed;
+                });
+            });
         }
 
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)

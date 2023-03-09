@@ -32,7 +32,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="2"
+                <TextBlock Name="Whore2" Grid.ColumnSpan="2"
                            Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
                            TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center"
                            HorizontalAlignment="Stretch" FontSize="14" />
@@ -52,7 +52,9 @@
         <Border Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" CornerRadius="20"
                 BorderBrush="#79747E" BorderThickness="1" Margin="30" MaxWidth="800">
             <Grid>
+                
                 <Border Name="BDRounded" CornerRadius="20" Background="White" />
+                
                 <ui:DataGrid HeadersVisibility="Column" CellStyle="{StaticResource Cells}" RowHeight="50"
                              ColumnWidth="*" VerticalScrollBarVisibility="Visible" IsReadOnly="True"
                              RowDetailsVisibilityMode="Collapsed" Name="DataGrid"
@@ -61,6 +63,8 @@
                         <VisualBrush Visual="{Binding ElementName=BDRounded}" />
                     </DataGrid.OpacityMask>
                 </ui:DataGrid>
+                <ui:ProgressRing Name="LoadingRing"  Grid.ColumnSpan="3"
+                                 IsIndeterminate="True" Visibility="Visible" />
             </Grid>
         </Border>
 
@@ -79,6 +83,8 @@
                         <VisualBrush Visual="{Binding ElementName=BDRounded1}" />
                     </DataGrid.OpacityMask>
                 </ui:DataGrid>
+                <ui:ProgressRing Name="LoadingRing2"  Grid.ColumnSpan="3"
+                                 IsIndeterminate="True" Visibility="Visible" />
             </Grid>
         </Border>
     </Grid>
