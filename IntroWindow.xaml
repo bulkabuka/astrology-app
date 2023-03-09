@@ -33,7 +33,7 @@
         </Border>
         <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Padding="10" Margin="0, 10" BorderBrush="#E6E1E5" BorderThickness="1" CornerRadius="20">
             <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <TextBlock Name="IntroText" TextWrapping="Wrap" FontSize="12pt" Foreground="Gray"/>
+                <TextBlock Name="IntroText" TextWrapping="Wrap" FontSize="12pt" Foreground="#313033"/>
             </ScrollViewer>
         </Border>
         <Button Style="{DynamicResource ButtonMaterial}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Content="Я принимаю соглашение" HorizontalAlignment="Stretch" Name="EnterBtn" Click="EnterBtn_OnClick"/>
