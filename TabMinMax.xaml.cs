@@ -17,6 +17,23 @@ namespace AstrologyApp
             InitializeComponent();
         }
 
+        private void VisibleColumns(DataGrid dataGrid)
+        {
+            foreach (var column in dataGrid.Columns)
+            {
+                if (column.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
+                {
+                    column.MaxWidth = 0;
+                    column.Width = 0;
+                    column.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    column.MaxWidth = double.PositiveInfinity;
+                    column.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void MaxBtn_OnClick(object sender, RoutedEventArgs e)
         {
             ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
@@ -44,24 +61,29 @@ namespace AstrologyApp
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
             DataTable clonedTable = ExcelPath.DataTable.Clone();
+            DataTable clonedTable2 = ExcelPath.DataTable.Clone();
             foreach (DataRow row in ExcelPath.DataTable.Rows)
             {
                 clonedTable.ImportRow(row);
+                clonedTable2.ImportRow(row);
             }
             DataGrid.ItemsSource = clonedTable.DefaultView;
-            DataGrid1.ItemsSource = clonedTable.DefaultView;
+            DataGrid1.ItemsSource = clonedTable2.DefaultView;
+
             if (DataGrid.ItemsSource != null && DataGrid1.ItemsSource != null)
             {
-                ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
-                ICollectionView dataView1 = CollectionViewSource.GetDefaultView(DataGrid1.ItemsSource);
+                // Создаем два разных ICollectionView для каждого DataGrid
+                ICollectionView dataView = new CollectionViewSource { Source = DataGrid.ItemsSource }.View;
+                ICollectionView dataView1 = new CollectionViewSource { Source = DataGrid1.ItemsSource }.View;
+
                 // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
                 dataView.SortDescriptions.Clear();
-                dataView1.SortDescriptions.Clear();
                 dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
+
+                dataView1.SortDescriptions.Clear();
                 dataView1.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
-                // Обновляем отображение данных в DataGrid
-                dataView.Refresh();
-                dataView1.Refresh();
+                VisibleColumns(DataGrid);
+                VisibleColumns(DataGrid1);
             }
         }
 

@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Documents;
 using ExcelDataReader;
+using Excel = Microsoft.Office.Interop.Excel;
 using Wpf.Ui.Controls;
 using MessageBox = System.Windows.MessageBox;
 using Page = System.Windows.Controls.Page;
@@ -51,6 +52,20 @@ namespace AstrologyApp
                     CoolApplyButton.IsEnabled = true;
                     LoadingRing.Visibility = Visibility.Collapsed;
                     Title.Visibility = Visibility.Visible;
+                    foreach (DataGridColumn column2 in DataGrid.Columns)
+                    {
+                        if (column2.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
+                        {
+                            column2.MaxWidth = 0;
+                            column2.Width = 0;
+                            column2.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            column2.MaxWidth = double.PositiveInfinity;
+                            column2.Visibility = Visibility.Visible;
+                        }
+                    }
                 }
             }
         }
@@ -130,7 +145,9 @@ namespace AstrologyApp
             {
                 var exePath = AppDomain.CurrentDomain.BaseDirectory;
                 ExcelPath.excelPath = Path.Combine(exePath, "AstrologyExcel.xlsx");
-               FindExcel(ExcelPath.excelPath);
+                FindExcel(ExcelPath.excelPath);
+                
+
             }
             catch (Exception exception)
             {

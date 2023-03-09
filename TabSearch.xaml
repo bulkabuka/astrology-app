@@ -44,7 +44,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.ColumnSpan="2" Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
+                <TextBlock Name="Whore" Grid.ColumnSpan="2" Text="Расчёт совместимости партнёров для: Гамуйло Сергей Сергеевич, 29.12.2004, 6 часов"
                            TextWrapping="Wrap" Foreground="#313033" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="14"/>
                 <Button MaxHeight="40" MaxWidth="200" Margin="10, 0, 5, 0" Grid.Column="2"  Style="{DynamicResource ButtonMaterial}" 
                         Name="FilePickBtn" Content="Инструкция" Click="ApplyBtn_OnClick" HorizontalAlignment="Stretch"/>
