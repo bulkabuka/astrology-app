@@ -23,12 +23,12 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.ColumnSpan="5" Title="Точка опоры. Интро" Background="#6750A4" Foreground="White"
+        <ui:TitleBar Grid.ColumnSpan="5" Title="Точка опоры. Соглашение" Background="#6750A4" Foreground="White"
                      ButtonsForeground="White"></ui:TitleBar>
         <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="20" Background="#E6E1E5" Margin="0, 10">
             <TextBlock Foreground="#313033" TextWrapping="Wrap" FontSize="12pt" Padding="10" TextAlignment="Center" VerticalAlignment="Center">
                 Привет! Перед тем как начать использование, 
-                нужно ознакомиться с пользовательским соглашением.
+                нужно ознакомиться с лицензионным соглашением.
             </TextBlock>
         </Border>
         <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Padding="10" Margin="0, 10" BorderBrush="#E6E1E5" BorderThickness="1" CornerRadius="20">
