@@ -1,12 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ExcelDataReader;
 
 namespace AstrologyApp
 {
@@ -20,7 +16,6 @@ namespace AstrologyApp
         private void VisibleColumns(DataGrid dataGrid)
         {
             foreach (var column in dataGrid.Columns)
-            {
                 if (column.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
                 {
                     column.MaxWidth = 0;
@@ -32,11 +27,11 @@ namespace AstrologyApp
                     column.MaxWidth = double.PositiveInfinity;
                     column.Visibility = Visibility.Visible;
                 }
-            }
         }
+
         private void MaxBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
+            var dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
 
             // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
             dataView.SortDescriptions.Clear();
@@ -48,7 +43,7 @@ namespace AstrologyApp
 
         private void MinBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
+            var dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
 
             // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
             dataView.SortDescriptions.Clear();
@@ -60,21 +55,22 @@ namespace AstrologyApp
 
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DataTable clonedTable = ExcelPath.DataTable.Clone();
-            DataTable clonedTable2 = ExcelPath.DataTable.Clone();
+            var clonedTable = ExcelPath.DataTable.Clone();
+            var clonedTable2 = ExcelPath.DataTable.Clone();
             foreach (DataRow row in ExcelPath.DataTable.Rows)
             {
                 clonedTable.ImportRow(row);
                 clonedTable2.ImportRow(row);
             }
+
             DataGrid.ItemsSource = clonedTable.DefaultView;
             DataGrid1.ItemsSource = clonedTable2.DefaultView;
 
             if (DataGrid.ItemsSource != null && DataGrid1.ItemsSource != null)
             {
                 // Создаем два разных ICollectionView для каждого DataGrid
-                ICollectionView dataView = new CollectionViewSource { Source = DataGrid.ItemsSource }.View;
-                ICollectionView dataView1 = new CollectionViewSource { Source = DataGrid1.ItemsSource }.View;
+                var dataView = new CollectionViewSource { Source = DataGrid.ItemsSource }.View;
+                var dataView1 = new CollectionViewSource { Source = DataGrid1.ItemsSource }.View;
 
                 // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
                 dataView.SortDescriptions.Clear();

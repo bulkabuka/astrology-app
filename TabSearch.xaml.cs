@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Controls;
 using System.Data;
 using System.IO;
-using System.Windows.Documents;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using ExcelDataReader;
-using Excel = Microsoft.Office.Interop.Excel;
-using Wpf.Ui.Controls;
-using MessageBox = System.Windows.MessageBox;
-using Page = System.Windows.Controls.Page;
 
 namespace AstrologyApp
 {
@@ -38,34 +34,39 @@ namespace AstrologyApp
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     // Read the data from the first worksheet
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
                     {
-                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
                     });
                     var dataTable = dataSet.Tables[0];
                     // Set the DataTable as the DataGrid's ItemsSource
-                    DataGrid.ItemsSource = dataTable.DefaultView;
+                    Dispatcher.Invoke(() => DataGrid.ItemsSource = dataTable.DefaultView);
                     var column = DataGrid.Columns[1] as DataGridTextColumn;
                     if (column != null) column.Binding.StringFormat = "HH:mm";
                     var column1 = DataGrid.Columns[0] as DataGridTextColumn;
                     if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
-                    CoolApplyButton.IsEnabled = true;
-                    LoadingRing.Visibility = Visibility.Collapsed;
-                    Title.Visibility = Visibility.Visible;
-                    foreach (DataGridColumn column2 in DataGrid.Columns)
-                    {
-                        if (column2.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
+                    Dispatcher.Invoke(() =>
                         {
-                            column2.MaxWidth = 0;
-                            column2.Width = 0;
-                            column2.Visibility = Visibility.Collapsed;
+                            CoolApplyButton.IsEnabled = true;
+                            LoadingRing.Visibility = Visibility.Collapsed;
+                            Title.Visibility = Visibility.Visible;
                         }
-                        else
+                    );
+                    foreach (var column2 in DataGrid.Columns)
+                        Dispatcher.Invoke(() =>
                         {
-                            column2.MaxWidth = double.PositiveInfinity;
-                            column2.Visibility = Visibility.Visible;
-                        }
-                    }
+                            if (column2.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
+                            {
+                                column2.MaxWidth = 0;
+                                column2.Width = 0;
+                                column2.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                column2.MaxWidth = double.PositiveInfinity;
+                                column2.Visibility = Visibility.Visible;
+                            }
+                        });
                 }
             }
         }
@@ -84,19 +85,21 @@ namespace AstrologyApp
             }
             else
             {
-                DateTime selectedDate = (DateTime)DatePick.SelectedDate;
+                var selectedDate = (DateTime)DatePick.SelectedDate;
                 var dataTable = (DataGrid.ItemsSource as DataView)?.Table.DefaultView;
                 var row = dataTable.Table.Rows[1];
-                
+
                 if (TimeBox.SelectedValue != null)
                 {
-                    string normalTime = (TimeBox.SelectedValue as ComboBoxItem)?.Content.ToString();
+                    var normalTime = (TimeBox.SelectedValue as ComboBoxItem)?.Content.ToString();
                     normalTime = "1899-12-31 " + (normalTime.Length == 2 ? normalTime : "0" + normalTime) + ":00:00";
                     dataTable.RowFilter =
                         $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}' AND [Время] = '{normalTime}'";
                 }
                 else
+                {
                     dataTable.RowFilter = $"[Дата] = '{selectedDate.Date.ToString("yyyy-MM-dd")}'";
+                }
 
 
                 DataGrid.ItemsSource = dataTable;
@@ -112,9 +115,9 @@ namespace AstrologyApp
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     // Read the data from the first worksheet
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
+                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
                     {
-                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration() { UseHeaderRow = true }
+                        ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
                     });
                     var dataTable = dataSet.Tables[0];
 
@@ -136,6 +139,7 @@ namespace AstrologyApp
                 MessageBox.Show("Не выбран файл таблицы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             Navigator.frame.Content = new TabMinMax();
         }
 
@@ -145,15 +149,16 @@ namespace AstrologyApp
             {
                 var exePath = AppDomain.CurrentDomain.BaseDirectory;
                 ExcelPath.excelPath = Path.Combine(exePath, "AstrologyExcel.xlsx");
-                FindExcel(ExcelPath.excelPath);
-                
+                Task.Run(async delegate { FindExcel(ExcelPath.excelPath); });
 
+                // FindExcel(ExcelPath.excelPath);
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией (кнопка) " +
-                                "или откройте файл вручную",
+                MessageBox.Show(
+                    "Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией (кнопка) ",
                     "Ошибка считывания файла");
+                throw new Exception("Ошибочка");
             }
         }
     }
