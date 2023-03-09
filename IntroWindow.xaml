@@ -1,12 +1,11 @@
 ﻿<ui:FluentWindow x:Class="AstrologyApp.IntroWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:AstrologyApp"
-        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        mc:Ignorable="d"
-        Title="IntroWindow" Height="600" Width="800">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+                 mc:Ignorable="d"
+                 Title="IntroWindow" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -16,26 +15,30 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.ColumnSpan="5" Title="Точка опоры. В личном. Соглашение" Background="#6750A4" Foreground="White"
-                     ButtonsForeground="White"></ui:TitleBar>
+        <ui:TitleBar Grid.ColumnSpan="5" Title="Точка опоры. В личном. Соглашение" Background="#6750A4"
+                     Foreground="White"
+                     ButtonsForeground="White" />
         <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" CornerRadius="20" Background="#E6E1E5" Margin="0, 10">
-            <TextBlock Foreground="#313033" TextWrapping="Wrap" FontSize="12pt" Padding="10" TextAlignment="Center" VerticalAlignment="Center">
-                Привет! Перед тем как начать использование, 
+            <TextBlock Foreground="#313033" TextWrapping="Wrap" FontSize="12pt" Padding="10" TextAlignment="Center"
+                       VerticalAlignment="Center">
+                Привет! Перед тем как начать использование,
                 необходимо ознакомиться с лицензионным соглашением.
             </TextBlock>
         </Border>
-        <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Padding="10" Margin="0, 10" BorderBrush="#E6E1E5" BorderThickness="1" CornerRadius="20">
+        <Border Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="3" Padding="10" Margin="0, 10"
+                BorderBrush="#E6E1E5" BorderThickness="1" CornerRadius="20">
             <ScrollViewer VerticalScrollBarVisibility="Visible">
-                <TextBlock Name="IntroText" TextWrapping="Wrap" FontSize="12pt" Foreground="#313033"/>
+                <TextBlock Name="IntroText" TextWrapping="Wrap" FontSize="12pt" Foreground="#313033" />
             </ScrollViewer>
         </Border>
-        <Button Style="{DynamicResource ButtonMaterial}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Content="Я принимаю соглашение" HorizontalAlignment="Stretch" Name="EnterBtn" Click="EnterBtn_OnClick"/>
+        <Button Style="{DynamicResource ButtonMaterial}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                Content="Я принимаю соглашение" HorizontalAlignment="Stretch" Name="EnterBtn" Click="EnterBtn_OnClick" />
     </Grid>
 </ui:FluentWindow>

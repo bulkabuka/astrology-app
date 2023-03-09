@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
+using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ExcelDataReader;
 
 namespace AstrologyApp
 {
@@ -20,7 +21,6 @@ namespace AstrologyApp
         private void VisibleColumns(DataGrid dataGrid)
         {
             foreach (var column in dataGrid.Columns)
-            {
                 if (column.DisplayIndex >= 3) // Установите максимальное количество колонок здесь
                 {
                     column.MaxWidth = 0;
@@ -32,64 +32,40 @@ namespace AstrologyApp
                     column.MaxWidth = double.PositiveInfinity;
                     column.Visibility = Visibility.Visible;
                 }
-            }
-        }
-        private void MaxBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
-
-            // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-            dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
-
-            // Обновляем отображение данных в DataGrid
-            dataView.Refresh();
-        }
-
-        private void MinBtn_OnClick(object sender, RoutedEventArgs e)
-        {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(DataGrid.ItemsSource);
-
-            // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-            dataView.SortDescriptions.Clear();
-            dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
-
-            // Обновляем отображение данных в DataGrid
-            dataView.Refresh();
         }
 
         private void TabMinMax_OnLoaded(object sender, RoutedEventArgs e)
         {
-            DataTable clonedTable = ExcelPath.DataTable.Clone();
-            DataTable clonedTable2 = ExcelPath.DataTable.Clone();
-            foreach (DataRow row in ExcelPath.DataTable.Rows)
+            Whore2.Text = ExcelPath.whore;
+            Task.Run(async delegate
             {
-                clonedTable.ImportRow(row);
-                clonedTable2.ImportRow(row);
-            }
-            DataGrid.ItemsSource = clonedTable.DefaultView;
-            DataGrid1.ItemsSource = clonedTable2.DefaultView;
+                // Группируем по дате
+                var clonedTableQuery = ExcelPath.DataTable.Copy().AsEnumerable().GroupBy(r => r["Дата"]);
+                // Для таблицы максимума берём максимум по дням и сортируем по убыванию
+                var res1 = clonedTableQuery.Select(g => g.OrderByDescending(r => r["Условные единицы"]).First())
+                    .OrderByDescending(r => r["Условные единицы"]).Take(10)
+                    .CopyToDataTable().DefaultView;
+                // Для таблицы минимума берём минимум по дням и сортируем по возростанию
+                var res2 = clonedTableQuery.Select(g => g.OrderBy(r => r["Условные единицы"]).First())
+                    .OrderBy(r => r["Условные единицы"]).Take(10).CopyToDataTable()
+                    .DefaultView;
 
-            if (DataGrid.ItemsSource != null && DataGrid1.ItemsSource != null)
-            {
-                // Создаем два разных ICollectionView для каждого DataGrid
-                ICollectionView dataView = new CollectionViewSource { Source = DataGrid.ItemsSource }.View;
-                ICollectionView dataView1 = new CollectionViewSource { Source = DataGrid1.ItemsSource }.View;
+                Dispatcher.Invoke(() =>
+                {
+                    DataGrid.ItemsSource = res1;
+                    DataGrid1.ItemsSource = res2;
 
-                // Добавляем сортировку по убыванию столбца (замените propertyName на имя вашего столбца)
-                dataView.SortDescriptions.Clear();
-                dataView.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Descending));
-
-                dataView1.SortDescriptions.Clear();
-                dataView1.SortDescriptions.Add(new SortDescription("Условные единицы", ListSortDirection.Ascending));
-                VisibleColumns(DataGrid);
-                VisibleColumns(DataGrid1);
-            }
+                    VisibleColumns(DataGrid);
+                    VisibleColumns(DataGrid1);
+                    LoadingRing.Visibility = Visibility.Collapsed;
+                    LoadingRing2.Visibility = Visibility.Collapsed;
+                });
+            });
         }
 
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            Navigator.frame.Content = new TabSearch();
+            Navigator.frame.GoBack();
         }
     }
 }
