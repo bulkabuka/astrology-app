@@ -95,7 +95,7 @@
                           HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Stretch" MaxHeight="50"
                           Background="#E7E0EC" Foreground="#49454F" />
             </StackPanel>
-            <ui:Button ToolTipService.ShowOnDisabled="True" ToolTip="Недоступно пока не выбран файл" Grid.Column="2"
+            <ui:Button ToolTipService.ShowOnDisabled="True" Grid.Column="2"
                        MaxHeight="40" MinWidth="120" MaxWidth="200" Margin="30, 0,0, 0" HorizontalAlignment="Stretch"
                        Style="{DynamicResource ButtonMaterial}" IsEnabled="False" Name="CoolApplyButton"
                        Click="ApplyBtn_OnClick1" Content="Применить" />

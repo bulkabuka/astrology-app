@@ -121,25 +121,7 @@ namespace AstrologyApp
 
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            using (var stream = File.Open(ExcelPath.excelPath, FileMode.Open, FileAccess.Read))
-            {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
-                {
-                    // Read the data from the first worksheet
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
-                    });
-                    var dataTable = dataSet.Tables[0];
-
-                    // Set the DataTable as the DataGrid's ItemsSource
-                    DataGrid.ItemsSource = dataTable.DefaultView;
-                    var column = DataGrid.Columns[1] as DataGridTextColumn;
-                    if (column != null) column.Binding.StringFormat = "HH:mm";
-                    var column1 = DataGrid.Columns[0] as DataGridTextColumn;
-                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
-                }
-            }
+            FindExcel(ExcelPath.excelPath);
         }
 
         private void MinMaxBtn_OnClick(object sender, RoutedEventArgs e)
