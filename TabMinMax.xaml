@@ -8,6 +8,7 @@
       Title="TabMinMax"
       Loaded="TabMinMax_OnLoaded"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <ScrollViewer>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -22,7 +23,6 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Background="#E6E1E5" CornerRadius="20"
                 Padding="15, 10" Margin="30, 10" MaxHeight="80" MaxWidth="800">
             <Grid>
@@ -88,4 +88,5 @@
             </Grid>
         </Border>
     </Grid>
+    </ScrollViewer>
 </Page>
