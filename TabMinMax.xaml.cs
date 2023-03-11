@@ -54,6 +54,14 @@ namespace AstrologyApp
                 {
                     DataGrid.ItemsSource = res1;
                     DataGrid1.ItemsSource = res2;
+                    var column1 = DataGrid.Columns[0] as DataGridTextColumn;
+                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
+                    var column2 = DataGrid1.Columns[0] as DataGridTextColumn;
+                    if (column2 != null) column2.Binding.StringFormat = "M/dd/yyyy";
+                    var column3 = DataGrid.Columns[1] as DataGridTextColumn;
+                    if (column3 != null) column3.Binding.StringFormat = "HH:mm";
+                    var column4 = DataGrid1.Columns[1] as DataGridTextColumn;
+                    if (column4 != null) column4.Binding.StringFormat = "HH:mm";
 
                     VisibleColumns(DataGrid);
                     VisibleColumns(DataGrid1);
@@ -61,6 +69,7 @@ namespace AstrologyApp
                     LoadingRing2.Visibility = Visibility.Collapsed;
                 });
             });
+
         }
 
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
