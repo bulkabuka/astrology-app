@@ -145,21 +145,23 @@ namespace AstrologyApp
 
         private void TabSearch_OnLoaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var exePath = AppDomain.CurrentDomain.BaseDirectory;
+            var exePath = AppDomain.CurrentDomain.BaseDirectory;
                 ExcelPath.excelPath = Path.Combine(exePath, "AstrologyExcel.xlsx");
-                Task.Run(async delegate { FindExcel(ExcelPath.excelPath); });
-
-                // FindExcel(ExcelPath.excelPath);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(
-                    "Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией (кнопка) ",
-                    "Ошибка считывания файла");
-                throw new Exception("Ошибочка");
-            }
+                Task.Run(async delegate
+                {
+                    try
+                    {
+                        FindExcel(ExcelPath.excelPath);
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(
+                            "Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией по кнопке ",
+                            "Ошибка считывания файла");
+                        throw new Exception("Ошибочка");
+                    }
+                });
+                
         }
     }
 }
