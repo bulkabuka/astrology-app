@@ -45,7 +45,7 @@ namespace AstrologyApp
                         {
                             
                             Whore.Text =
-                                $"Расчёт совместимости партнёров для: {fio}, {date?.ToString("dd/MM/yyyy, H")} часов";
+                                $"Расчёт совместимости партнёров для: {fio}, {date?.ToString("dd/MM/yyyy, H:mm")}";
                             ExcelPath.whore = Whore.Text;
                             LoadingRingText.Visibility = Visibility.Collapsed;
                             Wait_text1.Visibility = Visibility.Collapsed;
@@ -126,6 +126,9 @@ namespace AstrologyApp
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
             FindExcel(ExcelPath.excelPath);
+            DatePick.SelectedDate = null;
+            TimeBox.SelectedValue = null;
+            Refresh.IsEnabled = false;
         }
 
         private void MinMaxBtn_OnClick(object sender, RoutedEventArgs e)
