@@ -57,7 +57,7 @@ namespace AstrologyApp
                     var column = DataGrid.Columns[1] as DataGridTextColumn;
                     if (column != null) column.Binding.StringFormat = "HH:mm";
                     var column1 = DataGrid.Columns[0] as DataGridTextColumn;
-                    if (column1 != null) column1.Binding.StringFormat = "M/dd/yyyy";
+                    if (column1 != null) column1.Binding.StringFormat = "dd/MM/yyyy";
                     Dispatcher.Invoke(() =>
                         {
                             CoolApplyButton.IsEnabled = true;
