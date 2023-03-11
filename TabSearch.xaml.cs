@@ -48,6 +48,8 @@ namespace AstrologyApp
                                 $"Расчёт совместимости партнёров для: {fio}, {date?.ToString("dd/MM/yyyy, H")} часов";
                             ExcelPath.whore = Whore.Text;
                             LoadingRingText.Visibility = Visibility.Collapsed;
+                            Wait_text1.Visibility = Visibility.Collapsed;
+                            Wait_text2.Visibility = Visibility.Collapsed;
                         }
                     );
                     // Set the DataTable as the DataGrid's ItemsSource
@@ -60,6 +62,8 @@ namespace AstrologyApp
                         {
                             CoolApplyButton.IsEnabled = true;
                             LoadingRing.Visibility = Visibility.Collapsed;
+                            Wait_text1.Visibility = Visibility.Collapsed;
+                            Wait_text2.Visibility = Visibility.Collapsed;
                             Title.Visibility = Visibility.Visible;
                         }
                     );

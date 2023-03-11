@@ -8,7 +8,6 @@
       Title="TabSearch"
       Loaded="TabSearch_OnLoaded"
       HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <ScrollViewer>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -41,6 +40,8 @@
                 </ui:DataGrid>
                 <ui:ProgressRing Name="LoadingRing" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                                  Margin="0, 80, 0, 0" IsIndeterminate="True" Visibility="Visible" />
+                <TextBlock Name="Wait_text1" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0, 80, 0, 0" HorizontalAlignment="Center"
+                           VerticalAlignment="Center" Visibility="Visible" Text="Загрузка... Пожалуйста, подождите" ></TextBlock>
             </Grid>
         </Border>
 
@@ -60,6 +61,8 @@
                            HorizontalAlignment="Stretch" FontSize="14" />
                 <ui:ProgressRing Name="LoadingRingText" Grid.ColumnSpan="2"
                                   IsIndeterminate="True" VerticalAlignment="Center" Visibility="Visible" />
+                <TextBlock Name="Wait_text2" Grid.ColumnSpan="2"
+                           VerticalAlignment="Center" Visibility="Visible" Text="Загрузка... Пожалуйста, подождите" ></TextBlock>
                 
                 <Button MaxHeight="40" MaxWidth="200" Margin="10, 0, 5, 0" Grid.Column="2"
                         Style="{DynamicResource ButtonMaterial}"
@@ -102,5 +105,5 @@
                        Click="ApplyBtn_OnClick1" Content="Применить" />
         </Grid>
     </Grid>
-    </ScrollViewer>
+    
 </Page>
