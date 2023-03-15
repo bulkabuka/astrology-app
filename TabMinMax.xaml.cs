@@ -75,6 +75,7 @@ namespace AstrologyApp
         private void BackAllBtn_OnClick(object sender, RoutedEventArgs e)
         {
             Navigator.frame.GoBack();
+            ExcelPath.FromPage = true;
         }
     }
 }

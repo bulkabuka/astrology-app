@@ -17,11 +17,23 @@ namespace AstrologyApp
             var hoursItems = new Collection<ComboBoxItem>();
             for (var i = 0; i < 24; i++)
             {
-                var item = new ComboBoxItem
+                if (i < 10)
                 {
-                    Content = i
-                };
-                hoursItems.Add(item);
+                    var item = new ComboBoxItem
+                    {
+                        Content = "0" + i
+                    };
+                    hoursItems.Add(item);
+                }
+                else
+                {
+                    var item = new ComboBoxItem
+                    {
+                        Content = i
+                    };
+                    hoursItems.Add(item);
+                }
+                
             }
 
             TimeBox.ItemsSource = hoursItems;
@@ -110,6 +122,8 @@ namespace AstrologyApp
                     normalTime = "1899-12-31 " + (normalTime?.Length == 2 ? normalTime : "0" + normalTime) + ":00:00";
                     dataTable.RowFilter =
                         $"[Дата] = '{selectedDate.ToString("yyyy-MM-dd")}' AND [Время] = '{normalTime}'";
+                    BackTo.SelectedDate = selectedDate.ToString();
+                    BackTo.DateTime = normalTime;
                 }
                 else
                 {
@@ -155,10 +169,13 @@ namespace AstrologyApp
                     }
                     catch (Exception exception)
                     {
-                        MessageBox.Show(
-                            "Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией по кнопке ",
-                            "Ошибка считывания файла");
-                        throw new Exception("Ошибочка");
+                        if (ExcelPath.FromPage == false)
+                        {
+                            MessageBox.Show(
+                                "Удостоверьтесь, что Excel файл находится в той же директории, что и приложение. Ознакомьтесь с инструкцией по кнопке ",
+                                "Ошибка считывания файла");
+                            throw new Exception("Ошибочка");
+                        }
                     }
                 });
                 
