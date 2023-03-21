@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using ExcelDataReader;
+using System.Diagnostics;
 
 namespace AstrologyApp
 {
@@ -101,7 +102,9 @@ namespace AstrologyApp
 
         private void ApplyBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var exePath = AppDomain.CurrentDomain.BaseDirectory;
+            String pdffile = $"{exePath}\\AstrologyAppGuide.pdf";
+            Process.Start(pdffile);
         }
 
         private void ApplyBtn_OnClick1(object sender, RoutedEventArgs e)
